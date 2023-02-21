@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TODO APP</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+    <p>{{request.user}}</p>
+        <a href="">LOGOUT</a>
+    {% else %}
+    {% endif %}
+
+    <h1>MY TODO LIST</h1>
+    <center><a href="{% url 'task-create' %}">Add Task</a></center>
+    <table>
+        <tr>
+            <th>ITEMS</th>
+        </tr>
+        {% for tasks in task %}
+        <tr>
+            <td>{{tasks.title}}</td>
+            <td>{{tasks.completed}}</td>
+            <td>{{tasks.created}}</td>
+
+            <td><a href="{% url 'task-detail' tasks.id%}">View</a></td>
+            <td><a href="{% url 'task-update' tasks.id%}">Edit</a></td>
+            <td><a href="{% url 'task-delete' tasks.id%}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
